@@ -1,0 +1,7 @@
+{
+    "reason": "string",
+    "description": "string",
+    "limit": 0,
+    "message": "File is too big",
+    "error": "string"
+}

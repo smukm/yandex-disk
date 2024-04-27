@@ -1,0 +1,13 @@
+{
+    "_embedded":
+    {
+        "items": [
+            {
+                "path":"disk:/foo/bar-2"
+            },
+            {
+                "path":"disk:/foo/bar-3"
+            }]
+    },
+    "name":"foo"
+}

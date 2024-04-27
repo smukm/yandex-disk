@@ -1,0 +1,22 @@
+{
+    "_embedded": {
+        "sort": "",
+        "items": [],
+        "limit": 20,
+        "offset": 0,
+        "path": "disk:/Test",
+        "total": 0
+    },
+    "name": "Test",
+    "exif": {},
+    "resource_id": "120364360:f4fe81606da0b7bced15b9c52b2ddb9097d155ca4e20fdca345bd3b0ee2ed407",
+    "created": "2024-04-12T10:54:54+00:00",
+    "modified": "2024-04-12T10:54:54+00:00",
+    "path": "disk:/Test",
+    "comment_ids": {
+        "private_resource": "120364360:f4fe81606da0b7bced15b9c52b2ddb9097d155ca4e20fdca345bd3b0ee2ed407",
+        "public_resource": "120364360:f4fe81606da0b7bced15b9c52b2ddb9097d155ca4e20fdca345bd3b0ee2ed407"
+    },
+    "type": "dir",
+    "revision": 1712919294252046
+}
