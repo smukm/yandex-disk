@@ -1,5 +1,6 @@
 <?php
 
+namespace smukm\YandexDisk;
 
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\ConnectException;
@@ -8,6 +9,7 @@ use smukm\YandexDisk\Exceptions\YandexDiskException;
 use smukm\YandexDisk\Helpers\RequestHelper;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
+use Throwable;
 
 class Lib
 {

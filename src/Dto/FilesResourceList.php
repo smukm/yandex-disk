@@ -21,7 +21,7 @@ class FilesResourceList
         );
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'items' => $this->items,

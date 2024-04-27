@@ -1,5 +1,6 @@
 <?php
 
+namespace smukm\YandexDisk;
 
 use League\Flysystem\Config;
 use League\Flysystem\DirectoryAttributes;
@@ -21,7 +22,10 @@ use League\Flysystem\UnableToWriteFile;
 use League\Flysystem\Visibility;
 use smukm\YandexDisk\Api\YandexDiskApi;
 use smukm\YandexDisk\Dto\Error;
-use smukm\YandexDisk\Helpers\ResponseCode;
+use smukm\YandexDisk\Exceptions\YandexDiskConflict;
+use smukm\YandexDisk\Exceptions\YandexDiskException;
+use smukm\YandexDisk\Exceptions\YandexDiskNotFound;
+use Throwable;
 
 class Adapter implements FilesystemAdapter
 {

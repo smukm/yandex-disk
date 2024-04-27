@@ -2,10 +2,11 @@
 
 namespace smukm\YandexDisk\Exceptions;
 
+use RuntimeException;
 use smukm\YandexDisk\Dto\Error;
 use smukm\YandexDisk\Helpers\ResponseCode;
 
-class YandexDiskException extends \RuntimeException
+class YandexDiskException extends RuntimeException
 {
     protected Error $error;
     public function __construct(string $message, string $description, string $error, int $code)

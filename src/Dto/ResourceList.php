@@ -28,7 +28,7 @@ class ResourceList
             total: $info['_embedded']['total'] ?? 0
         );
     }
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'sort' => $this->sort,
