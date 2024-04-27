@@ -8,7 +8,15 @@ Install extension through [composer](http://getcomposer.org/):
 composer require smukm/yandex-disk
 ```
 
-## Usage
+Useful Links
+------------
+
+- The Yandex Disk API [https://yandex.ru/dev/disk-api/doc/en/](https://yandex.ru/dev/disk-api/doc/en/)
+- Sandbox [https://yandex.ru/dev/disk/poligon/](https://yandex.ru/dev/disk/poligon/) is `#behat`
+
+Usage Example
+-------------
+
 ```php
 try {
     $client = new YandexDiskApi(
@@ -16,116 +24,116 @@ try {
         new \GuzzleHttp\Client()
     );
 
-    // Получение метаинформации о диске
+    // Getting meta information about the user`s Yandex Disk
     $diskInfo = $client->resource->getDiskInfo();
     
-    // Получение рекурсивного списока ресурсов директории
+    // Getting a recursive list of folder resources
     $list = $client->resource->listContents(directory: 'Uploads', recursive: true);
 
-    // Копирование файла или папки
+    // Copying a file or folder
     $link = $client->disk->copy(from: 'file1.txt',path: 'file2.txt', overwrite: true);
-    // Если копирование происходит асинхронно, то вернёт ответ с кодом 202 и ссылкой на асинхронную операцию.
+    // If copying has started but not completed yet, Yandex Disk returns the 202 Accepted code.
     if($link->status === ResponseCode::HTTP_ACCEPTED) {
         $op_status = $client->disk->getStatus($link->operation_id);
         echo 'operation status: ' . $op_status['status'];
     }
 
-    // Перемещение файла или папки
+    // Moving a file or folder
     $link = $client->disk->move(from: 'folder1/file1.txt', path: 'folder2/file1.txt', overwrite: true);
-    // Если перемещение происходит асинхронно, то вернёт ответ с кодом 202 и ссылкой на асинхронную операцию.
+    // If moving has started but not completed yet, Yandex Disk returns the 202 Accepted code.
     if($link->status === ResponseCode::HTTP_ACCEPTED) {
         $op_status = $client->disk->getStatus($link->operation_id);
         echo 'operation status: ' . $op_status['status'];
     }
 
-    // Удаление файла или папки
+    // Deleting a file or folder
     $link = $client->disk->removeResource(path:'folder2',permanently: true);
-    // Если удаление происходит асинхронно, то вернёт ответ со статусом 202 и ссылкой на асинхронную операцию
+    // If deleting has started but not completed yet, Yandex Disk returns the 202 Accepted code.
     if($link->status === ResponseCode::HTTP_ACCEPTED) {
         $op_status = $client->disk->getStatus($link->operation_id);
         echo 'operation status: ' . $op_status['status'];
     }
 
-    // Получение метаинформации о файле или каталоге
+    // Getting File or folder meta information
     $link = $client->resource->getMeta('file1.txt');
     echo 'file size: ' . $link->size;
 
-    // Добавление пользовательской метаинформации для файла или каталога
+    // Adding resource meta information
     $client->resource->addMeta(path:'file1.txt',custom_properties: ['tag' => 'info'] );
 
-    // Создание директории
+    // Creating a folder
     $client->disk->createDir('New folder');
 
-    // Скачивание файла
+    // Downloading a file from Yandex Disk
     $save_path = '/path/to/file.txt';
     $file_contents = $client->io->downloadFile('file1.txt');
     file_put_contents($save_path, $file_contents);
 
-    // Скачивание файла потоком
+    // Downloading a file from Yandex Disk use stream
     $save_path = '/path/to/file.txt';
     $resource = fopen($save_path, 'w');
     $stream = $client->io->downloadStream('file1.txt');
     stream_copy_to_stream($stream->detach(), $resource);
     fclose($resource);
 
-    // Получение списка файлов упорядоченного по имени
+    // Getting a list of files ordered by name
     $list = $client->resource->getFlatList(['sort' => 'name']);
 
-    // Получение списка файлов упорядоченного по дате загрузки
+    // Getting a list of files ordered by upload date
     $list = $client->resource->getLastUploaded(['limit' => 5]);
 
-    // Получение списка опубликованных ресурсов
+    // Getting a list of published resourses
     $list = $client->public->list();
 
-    // Публикация ресурса
+    // Publishing a file or folder
     $client->public->publish('file1.txt');
 
-    // Снятие ресурса с публикации
+    // Unpublishing a file or folder
     $client->public->unpublish('file1.txt');
 
-    // Загрузка файла на диск
+    // Uploading a file to Yandex Disk
     $client->io->uploadFile(path: 'file2.txt', contents: 'new content', overwrite: true);
 
-    // Загрузка файла на диск потоком
+    // Uploading a file to Yandex Disk use stream
     $resource = \GuzzleHttp\Psr7\Utils::tryFopen('/path/to/bigfile.txt', 'r');
     $client->io->uploadStream('bigfile.txt', $resource);
 
-    // Загрузка файла на диск по url
+    // Downloading a file from the internet to Yandex Disk
     $link = $client->io->uploadFileFromUrl(
         url: 'https://site.com/file.jpg',
         path: 'file.jpg');
-    // проверить статус загрузки
+    // check up a download status
     $op_status = $client->disk->getStatus($link->operation_id);
     echo 'operation status: ' . $op_status['status'];
 
-    // Получение метаинформации о публичном ресурсе
+    // Getting a public resource meta information
     $info = $client->public->getMeta('https://disk.yandex.ru/i/OOrZOQR-w3VW3w');
 
-    // Получение ссылки на скачивание публичного ресурса
+    // Getting links for downloading a public file or folder
     $link = $client->public->download('https://disk.yandex.ru/i/OOrZOQR-w3VW3w');
 
-    // Сохранение публичного ресурса в папку Загрузки
+    // Saving a public file to the Downloads folder
     $link = $client->public->saveToDisk('https://disk.yandex.ru/i/OOrZOQR-w3VW3w');
-    // Если сохранение происходит асинхронно, то вернёт ответ с кодом 202 и ссылкой на асинхронную операцию.
+    // If saving has started but not completed yet, Yandex Disk returns the 202 Accepted code.
     if($link->status === ResponseCode::HTTP_ACCEPTED) {
         $op_status = $client->disk->getStatus($link->operation_id);
         echo 'operation status: ' . $op_status['status'];
     }
 
-    // Очистка корзины
+    // Emptying Trash
     $link = $client->trash->clear();
-    // Если удаление происходит асинхронно, то вернёт ответ со статусом 202 и ссылкой на асинхронную операцию.
+    // If deleting has started but not completed yet, Yandex Disk returns the 202 Accepted code.
     if($link->status === ResponseCode::HTTP_ACCEPTED) {
         $op_status = $client->disk->getStatus($link->operation_id);
         echo 'operation status: ' . $op_status['status'];
     }
 
-    // Получение содержимого корзины
+    // Getting contents of trash
     $list = $client->trash->getMeta('');
 
-    // Восстановление ресурса из корзины
+    // Restoring a file or folder from Trash
     $link = $client->trash->restore('bigfile.txt');
-    // Если восстановление происходит асинхронно, то вернёт ответ с кодом 202 и ссылкой на асинхронную операцию.
+    // If restoring has started but not completed yet, Yandex Disk returns the 202 Accepted code.
     if($link->status === ResponseCode::HTTP_ACCEPTED) {
         $op_status = $client->disk->getStatus($link->operation_id);
         echo 'operation status: ' . $op_status['status'];
@@ -153,65 +161,65 @@ try {
     $adapter = new Adapter($client, 'Test');
     $filesystem = new Filesystem($adapter);
     
-    // Загрузка файла на диск
+    // Uploading a file to Yandex Disk
     $filesystem->write('subdir/file.txt', 'some contents');
 
-    // Загрузка файла на диск потоком
+    // Uploading a file to Yandex Disk use stream
     $resource = \GuzzleHttp\Psr7\Utils::tryFopen('/path/to/bigfile.txt', 'r');
     $filesystem->writeStream('subdir/bigfile.txt', $resource);
 
-    // Перемещение файла
+    // Moving a file
     $filesystem->move('subdir/file.txt', 'subdir/file2.txt');
 
-    // Копирование файла
+    // Copying a file
     $filesystem->copy('subdir/file.txt', 'subdir/file2.txt');
 
-    // Удаление файла
+    // Deleting a file
     $filesystem->delete('subdir/file.txt');
 
-    // Создание директории
+    // Making a folder
     $filesystem->createDirectory('subdir/subdir2');
 
-    // Удаление директории
+    // Deleting a folder
     $filesystem->deleteDirectory('subdir/subdir2');
 
-    // Публикация ресурса
+    // Publishing a resource
     $filesystem->setVisibility('file.txt', 'public');
 
-    // Снятие ресурса с публикации
+    // Unpublished a resource
     $filesystem->setVisibility('file.txt', 'private');
 
-    // Проверка существования файла
+    // Checking the file existing
     $exists = $filesystem->fileExists('file.txt');
 
-    // Проверка существования директории
+    // Checking the folder existing
     $exists = $filesystem->directoryExists('dir');
 
-    // Скачивание файла
+    // Downloading a file
     $content = $filesystem->read('subdir/file.txt');
     file_put_contents('/path/to/file.txt', $content);
 
-    // Скачивание файла потоком
+    // Downloading a file use stream
     $stream = $filesystem->readStream('subdir/file.txt');
     $resource = fopen('/path/to/file.txt', 'w');
     stream_copy_to_stream($stream, $resource);
     fclose($resource);
 
-    // Получение рекурсивного списока ресурсов директории
+    // Getting a recursive list of folder resources
     $generator = $filesystem->listContents('', true);
     foreach($generator as $r) {
     }
 
-    // Получить размер файла в байтах
+    // Get the file size in bytes
     $file_size = $filesystem->fileSize('file1.txt');
 
-    // Получить тип данных у файла
+    // Get the file data type
     $mime_type = $filesystem->mimeType('file1.txt');
 
-    // Получить дату последнего изменения файла
+    // Get the file last change date
     $last_modified = $filesystem->lastModified('file1.txt');
 
-    // Получить статус доступа к файлу
+    // Get the file published status
     $visibility = $filesystem->visibility('file1.txt');
 
 } catch (Throwable $ex) {
