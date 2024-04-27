@@ -15,7 +15,7 @@
   },
   "autoload": {
     "psr-4": {
-      "smukm\\YandexDisk\\": ""
+      "smukm\\YandexDisk\\": "src/"
     }
   },
   "autoload-dev": {
