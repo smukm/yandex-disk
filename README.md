@@ -159,7 +159,7 @@ try {
         new \GuzzleHttp\Client()
     );
     $adapter = new Adapter($client, 'Test');
-    $filesystem = new Filesystem($adapter);
+    $filesystem = new League\Flysystem\Filesystem($adapter);
     
     // Uploading a file to Yandex Disk
     $filesystem->write('subdir/file.txt', 'some contents');
