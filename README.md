@@ -12,7 +12,7 @@ Useful Links
 ------------
 
 - The Yandex Disk API [https://yandex.ru/dev/disk-api/doc/en/](https://yandex.ru/dev/disk-api/doc/en/)
-- Sandbox [https://yandex.ru/dev/disk/poligon/](https://yandex.ru/dev/disk/poligon/) is `#behat`
+- Sandbox [https://yandex.ru/dev/disk/poligon/](https://yandex.ru/dev/disk/poligon/)
 
 Usage Example
 -------------
