@@ -149,7 +149,7 @@ try {
 
 ```
 
-Or use adapter for league flysystem
+Or use adapter for [League\Flysystem](https://github.com/thephpleague/flysystem)
 ```php
 
 
