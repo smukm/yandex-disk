@@ -9,7 +9,7 @@ use smukm\YandexDisk\Exceptions\YandexDiskException;
 final class TrashApi extends Api
 {
     /**
-     * Очистка Корзины
+     * Emptying Trash
      * @param string $path
      * @return Link
      * @throws YandexDiskException
@@ -28,7 +28,7 @@ final class TrashApi extends Api
     }
 
     /**
-     * Восстановление файла или папки из Корзины
+     * Restoring a file or folder from Trash
      * @param string $path
      * @param array{name: string, overwrite:bool} $options
      * @return Link
@@ -55,7 +55,7 @@ final class TrashApi extends Api
     }
 
     /**
-     * Метаинформация о файле или папке
+     * File and folder meta information
      * @param string $path
      * @param array{path: string, fields: array, limit: int, offset: int, preview_crop:bool, preview_size:string} $options
      * @return Resource

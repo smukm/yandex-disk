@@ -10,7 +10,7 @@ use smukm\YandexDisk\Exceptions\YandexDiskException;
 final class PublicResourceApi extends Api
 {
     /**
-     * Публикация ресурса
+     * Publishing a file or folder
      * @param string $path
      * @return Link
      * @throws YandexDiskException
@@ -29,7 +29,7 @@ final class PublicResourceApi extends Api
     }
 
     /**
-     * Закрытие доступа к ресурсу
+     * Unpublishing a file or folder
      * @param string $path
      * @return Link
      * @throws YandexDiskException
@@ -48,7 +48,7 @@ final class PublicResourceApi extends Api
     }
 
     /**
-     * Метаинформация о публичном ресурсе
+     * Meta information of public resources
      * @param string $public_key
      * @param array{path: string, sort: string, limit: int, offset: int, preview_crop: bool, preview_size: string} $options
      * @return Resource
@@ -78,7 +78,7 @@ final class PublicResourceApi extends Api
     }
 
     /**
-     * Скачивание публичного файла или папки
+     * Downloading a public file or folder
      * @param string $public_key
      * @param array{path: string} $options
      * @return Link
@@ -103,7 +103,7 @@ final class PublicResourceApi extends Api
     }
 
     /**
-     * Сохранение публичного файла в «Загрузки»
+     * Saving a public file to the Downloads folder
      * @param string $public_key
      * @param array{path: string, name: string} $options
      * @return Link
@@ -130,7 +130,7 @@ final class PublicResourceApi extends Api
     }
 
     /**
-     * Список опубликованных ресурсов
+     * List of published resources
      * @param array{limit: int, offset: int, type: string, fields: array, preview_size: string} $options
      * @return PublicResourcesList
      * @throws YandexDiskException

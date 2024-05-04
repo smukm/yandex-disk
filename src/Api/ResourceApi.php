@@ -12,7 +12,7 @@ use smukm\YandexDisk\Exceptions\YandexDiskException;
 final class ResourceApi extends Api
 {
     /**
-     * Данные о Диске пользователя
+     * Data about the user's Yandex Disk
      * @return Disk
      * @throws YandexDiskException
      */
@@ -25,7 +25,7 @@ final class ResourceApi extends Api
     }
 
     /**
-     * Метаинформация о файле или папке
+     * File and folder meta information
      * @param string $path
      * @param array{path: string, fields: array, limit: int, offset: int, preview_crop:bool, preview_size:string} $options
      * @return Resource
@@ -56,7 +56,7 @@ final class ResourceApi extends Api
     }
 
     /**
-     * Список ресурсов директории
+     * List of folder resources
      * @param string $directory
      * @param bool $recursive
      * @return array
@@ -105,7 +105,7 @@ final class ResourceApi extends Api
     }
 
     /**
-     * Добавление метаинформации для ресурса
+     * Adding resource meta information
      * @param string $path
      * @param array $custom_properties
      * @param array{fields: array} $options
@@ -137,7 +137,7 @@ final class ResourceApi extends Api
     }
 
     /**
-     * Последние загруженные файлы
+     * Recently uploaded files
      * @param array{limit: int, media_type: string, fields: array, preview_crop: bool, preview_size: string} $options
      * @return LastUploadedResourceList
      * @throws YandexDiskException
@@ -163,7 +163,7 @@ final class ResourceApi extends Api
     }
 
     /**
-     * Плоский список всех файлов
+     * Flat list of all files
      * @param array{limit: int, media_type: string, offset: int, fields: array, preview_crop: bool, preview_size: string} $options
      * @return FilesResourceList
      * @throws YandexDiskException

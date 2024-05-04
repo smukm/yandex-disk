@@ -7,6 +7,12 @@ use smukm\YandexDisk\Helpers\ResponseCode;
 
 final class DiskOperationApi extends Api
 {
+    /**
+     * Creating a folder
+     * @param string $path
+     * @param array $fields
+     * @return Link
+     */
     public function createDir(string $path, array $fields = []): Link
     {
         $allowed_options = [
@@ -27,6 +33,13 @@ final class DiskOperationApi extends Api
         return Link::createFromInfo($info);
     }
 
+    /**
+     * Deleting a file or folder
+     * @param string $path
+     * @param bool $permanently
+     * @param array $fields
+     * @return Link|bool
+     */
     public function removeResource(
         string $path,
         bool $permanently = false,
@@ -55,6 +68,14 @@ final class DiskOperationApi extends Api
         return Link::createFromInfo($info);
     }
 
+    /**
+     * Copying a file or folder
+     * @param string $from
+     * @param string $path
+     * @param bool $overwrite
+     * @param array $fields
+     * @return Link
+     */
     public function copy(
         string $from,
         string $path,
@@ -81,6 +102,14 @@ final class DiskOperationApi extends Api
         return Link::createFromInfo($info);
     }
 
+    /**
+     * Moving a file or folder
+     * @param string $from
+     * @param string $path
+     * @param bool $overwrite
+     * @param array $fields
+     * @return Link
+     */
     public function move(
         string $from,
         string $path,
@@ -109,6 +138,11 @@ final class DiskOperationApi extends Api
         return Link::createFromInfo($info, $response->getStatusCode());
     }
 
+    /**
+     * Operation status
+     * @param $operation_id
+     * @return array
+     */
     public function getStatus($operation_id): array
     {
         $response = $this->lib->send(

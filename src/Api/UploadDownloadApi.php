@@ -9,7 +9,7 @@ use Psr\Http\Message\StreamInterface;
 final class UploadDownloadApi extends Api
 {
     /**
-     * Загрузка файла на Диск
+     * Uploading a file to Yandex Disk
      * @param string $path
      * @param string $contents
      * @param bool $overwrite
@@ -50,7 +50,7 @@ final class UploadDownloadApi extends Api
     }
 
     /**
-     * Загрузка файла на диск побайтово
+     * Stream Uploading a file to Yandex Disk
      * @param string $path
      * @param $resource
      * @param bool $overwrite
@@ -74,7 +74,7 @@ final class UploadDownloadApi extends Api
             'fields'
         ];
 
-        // запрос к диску для загрузки
+        // Request to Yandex disk for uploading
         $response = $this->lib->send(
             url:Api::BASE_URL . '/resources/upload',
             query: $this->lib->makeQuery($options, $allowed_options)
@@ -95,7 +95,7 @@ final class UploadDownloadApi extends Api
     }
 
     /**
-     * Скачивание файла с Диска
+     * Downloading a file from Yandex Disk
      * @param string $path
      * @param array{fields: array} $options
      * @return string
@@ -128,7 +128,7 @@ final class UploadDownloadApi extends Api
     }
 
     /**
-     * Скачивание файла с Диска побайтово
+     * Stream Downloading a file from Yandex Disk
      * @param string $path
      * @param array{fields: array} $options
      * @return StreamInterface
@@ -161,7 +161,7 @@ final class UploadDownloadApi extends Api
     }
 
     /**
-     * Скачивание файла из интернета на Диск
+     * Downloading a file from the internet to Yandex Disk
      * @param string $url
      * @param string $path
      * @param array{disable_redirects: bool, fields: array} $options
