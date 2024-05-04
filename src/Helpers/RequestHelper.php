@@ -137,7 +137,6 @@ class RequestHelper
         return $type;
     }
 
-    //@todo
     private function urlencode(string $url): string
     {
         $arr = explode('/', $url);
