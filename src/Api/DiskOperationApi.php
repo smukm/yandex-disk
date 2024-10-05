@@ -21,11 +21,11 @@ final class DiskOperationApi extends Api
         ];
 
         $response = $this->lib->send(
-            url:Api::BASE_URL . '/resources',
-            query: $this->lib->makeQuery(compact(
+            Api::BASE_URL . '/resources',
+            $this->lib->makeQuery(compact(
                 'path', 'fields'
             ), $allowed_options),
-            method: 'PUT'
+            'PUT'
         );
 
         $info = $this->lib->jsonDecodeBodyContents($response);
@@ -44,7 +44,7 @@ final class DiskOperationApi extends Api
         string $path,
         bool $permanently = false,
         array $fields = []
-    ): Link|bool
+    )
     {
         $allowed_options = [
             'path',
@@ -52,11 +52,11 @@ final class DiskOperationApi extends Api
             'fields',
         ];
 
-        $response = $this->lib->send(url:Api::BASE_URL . '/resources',
-            query: $this->lib->makeQuery(compact(
+        $response = $this->lib->send(Api::BASE_URL . '/resources',
+            $this->lib->makeQuery(compact(
                 'path', 'permanently', 'fields'
             ), $allowed_options),
-            method: 'DELETE'
+            'DELETE'
         );
 
         if($response->getStatusCode() === ResponseCode::HTTP_NO_CONTENT) {
@@ -90,11 +90,11 @@ final class DiskOperationApi extends Api
             'fields',
         ];
 
-        $response = $this->lib->send(url:Api::BASE_URL . '/resources/copy',
-            query: $this->lib->makeQuery(compact(
+        $response = $this->lib->send(Api::BASE_URL . '/resources/copy',
+            $this->lib->makeQuery(compact(
                 'from', 'path', 'overwrite', 'fields'
             ), $allowed_options),
-            method: 'POST'
+            'POST'
         );
 
         $info = $this->lib->jsonDecodeBodyContents($response);
@@ -126,11 +126,11 @@ final class DiskOperationApi extends Api
         ];
 
         $response = $this->lib->send(
-            url:Api::BASE_URL . '/resources/move',
-            query: $this->lib->makeQuery(compact(
+            Api::BASE_URL . '/resources/move',
+            $this->lib->makeQuery(compact(
                 'from', 'path', 'overwrite', 'fields'
             ), $allowed_options),
-            method: 'POST'
+            'POST'
         );
 
         $info = $this->lib->jsonDecodeBodyContents($response);

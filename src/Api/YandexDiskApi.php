@@ -7,11 +7,27 @@ use Psr\Http\Client\ClientInterface;
 
 class YandexDiskApi
 {
-    public ResourceApi $resource;
-    public UploadDownloadApi $io;
-    public DiskOperationApi $disk;
-    public TrashApi $trash;
-    public PublicResourceApi $public;
+    /**
+     * @var ResourceApi
+     */
+    public $resource;
+    /**
+     * @var UploadDownloadApi
+     */
+    public $io;
+    /**
+     * @var DiskOperationApi
+     */
+    public $disk;
+    /**
+     * @var TrashApi
+     */
+    public $trash;
+
+    /**
+     * @var PublicResourceApi
+     */
+    public $public;
 
     public function __construct(
         string $token,

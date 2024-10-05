@@ -4,41 +4,113 @@ namespace smukm\YandexDisk\Dto;
 
 class Resource
 {
-    public function __construct(
-        public readonly string            $public_key,
-        public readonly string            $public_url,
-        public readonly ResourceList|null $_embedded,
-        public readonly string            $preview,
-        public readonly string            $name,
-        public readonly array             $custom_properties,
-        public readonly string            $created,
-        public readonly string            $modified,
-        public readonly string            $path,
-        public readonly string            $origin_path,
-        public readonly string            $md5,
-        public readonly string            $type,
-        public readonly string            $mime_type,
-        public readonly int               $size
-    )
-    {}
+    /**
+     * @var string
+     */
+    public $public_key;
+    /**
+     * @var string
+     */
+    public $public_url;
+    /**
+     * @var ResourceList|null
+     */
+    public $_embedded;
+    /**
+     * @var string
+     */
+    public $preview;
+    /**
+     * @var string
+     */
+    public $name;
+    /**
+     * @var array
+     */
+    public $custom_properties;
+    /**
+     * @var string
+     */
+    public $created;
+    /**
+     * @var string
+     */
+    public $modified;
+    /**
+     * @var string
+     */
+    public $path;
+    /**
+     * @var string
+     */
+    public $origin_path;
+    /**
+     * @var string
+     */
+    public $md5;
+    /**
+     * @var string
+     */
+    public $type;
+    /**
+     * @var string
+     */
+    public $mime_type;
+    /**
+     * @var int
+     */
+    public $size;
 
-    public static function createFromInfo(array $info): static
+    public function __construct(
+        string            $public_key,
+        string            $public_url,
+        ResourceList $_embedded,
+        string            $preview,
+        string            $name,
+        array             $custom_properties,
+        string            $created,
+        string            $modified,
+        string            $path,
+        string            $origin_path,
+        string            $md5,
+        string            $type,
+        string            $mime_type,
+        int               $size
+    )
     {
-        return new static(
-            public_key: $info['public_key'] ?? '',
-            public_url: $info['public_url'] ?? '',
-            _embedded: ResourceList::createFromInfo($info),
-            preview: $info['preview'] ?? '',
-            name: $info['name'] ?? '',
-            custom_properties: $info['custom_properties'] ?? [],
-            created: $info['created'] ?? '',
-            modified: $info['modified'] ?? '',
-            path: $info['path'] ?? '',
-            origin_path: $info['origin_path'] ?? '',
-            md5: $info['md5'] ?? '',
-            type: $info['type'] ?? '',
-            mime_type: $info['mime_type'] ?? '',
-            size: $info['size'] ?? 0,
+        $this->public_key = $public_key;
+        $this->public_url = $public_url;
+        $this->_embedded = $_embedded;
+        $this->preview = $preview;
+        $this->name = $name;
+        $this->custom_properties = $custom_properties;
+        $this->created = $created;
+        $this->modified = $modified;
+        $this->path = $path;
+        $this->origin_path = $origin_path;
+        $this->md5 = $md5;
+        $this->type = $type;
+        $this->mime_type = $mime_type;
+        $this->size = $size;
+    }
+
+    public static function createFromInfo(array $info): self
+    {
+        return new self(
+            $info['public_key'] ?? '',
+            $info['public_url'] ?? '',
+            ResourceList::createFromInfo($info),
+            $info['preview'] ?? '',
+            $info['name'] ?? '',
+            $info['custom_properties'] ?? [],
+            $info['created'] ?? '',
+            $info['modified'] ?? '',
+            $info['path'] ?? '',
+            $info['origin_path'] ?? '',
+            $info['md5'] ?? '',
+            $info['type'] ?? '',
+            $info['mime_type'] ?? '',
+            $info['size'] ?? 0
         );
     }
 

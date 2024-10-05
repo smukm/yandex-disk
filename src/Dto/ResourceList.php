@@ -4,28 +4,64 @@ namespace smukm\YandexDisk\Dto;
 
 class ResourceList
 {
+    /**
+     * @var string
+     */
+    public $sort;
+    /**
+     * @var string
+     */
+    public $public_key;
+    /**
+     * @var array
+     */
+    public $items;
+    /**
+     * @var int
+     */
+    public $limit;
+    /**
+     * @var int
+     */
+    public $offset;
+    /**
+     * @var string
+     */
+    public $path;
+    /**
+     * @var int
+     */
+    public $total;
+
     public function __construct(
-        public readonly string $sort,
-        public readonly string $public_key,
-        public readonly array  $items,
-        public readonly int    $limit,
-        public readonly int    $offset,
-        public readonly string $path,
-        public readonly int    $total,
+        string $sort,
+        string $public_key,
+        array  $items,
+        int    $limit,
+        int    $offset,
+        string $path,
+        int    $total
     )
     {
+        $this->sort = $sort;
+        $this->public_key = $public_key;
+        $this->items = $items;
+        $this->limit = $limit;
+        $this->offset = $offset;
+        $this->path = $path;
+        $this->total = $total;
     }
 
-    public static function createFromInfo(array $info): static
+    public static function createFromInfo(array $info): self
     {
-        return new static(
-            sort: $info['_embedded']['sort'] ?? '',
-            public_key: $info['_embedded']['sort'] ?? '',
-            items: $info['_embedded']['items'] ?? [],
-            limit: $info['_embedded']['limit'] ?? 0,
-            offset: $info['_embedded']['offset'] ?? 0,
-            path: $info['_embedded']['path'] ?? '',
-            total: $info['_embedded']['total'] ?? 0
+        return new self(
+            $info['_embedded']['sort'] ?? '',
+            $info['_embedded']['sort'] ?? '',
+            $info['_embedded']['items'] ?? [],
+            $info['_embedded']['limit'] ?? 0,
+            $info['_embedded']['offset'] ?? 0,
+            $info['_embedded']['path'] ?? '',
+            $info['_embedded']['total'] ?? 0
         );
     }
     public function toArray(): array

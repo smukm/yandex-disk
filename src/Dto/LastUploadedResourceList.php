@@ -4,18 +4,28 @@ namespace smukm\YandexDisk\Dto;
 
 class LastUploadedResourceList
 {
+    /**
+     * @var array
+     */
+    public $items;
+    /**
+     * @var int
+     */
+    public $limit;
     public function __construct(
-        public readonly array $items,
-        public readonly int   $limit
+        array $items,
+        int   $limit
     )
     {
+        $this->items = $items;
+        $this->limit = $limit;
     }
 
-    public static function createFromInfo(array $info): static
+    public static function createFromInfo(array $info): self
     {
         return new static(
-            items: $info['items'],
-            limit: $info['limit']
+            $info['items'],
+            $info['limit']
         );
     }
 }

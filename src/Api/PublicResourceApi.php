@@ -18,9 +18,9 @@ final class PublicResourceApi extends Api
     public function publish(string $path): Link
     {
         $response = $this->lib->send(
-            url:Api::BASE_URL . '/resources/publish',
-            query: $this->lib->makeQuery(compact('path'), ['path']),
-            method: 'PUT'
+            Api::BASE_URL . '/resources/publish',
+            $this->lib->makeQuery(compact('path'), ['path']),
+            'PUT'
         );
 
         $info = $this->lib->jsonDecodeBodyContents($response);
@@ -37,9 +37,9 @@ final class PublicResourceApi extends Api
     public function unpublish(string $path): Link
     {
         $response = $this->lib->send(
-            url:Api::BASE_URL . '/resources/unpublish',
-            query: $this->lib->makeQuery(compact('path'), ['path']),
-            method: 'PUT'
+            Api::BASE_URL . '/resources/unpublish',
+            $this->lib->makeQuery(compact('path'), ['path']),
+            'PUT'
         );
 
         $info = $this->lib->jsonDecodeBodyContents($response);
@@ -68,8 +68,8 @@ final class PublicResourceApi extends Api
         ];
 
         $response = $this->lib->send(
-            url:Api::BASE_URL . '/public/resources',
-            query: $this->lib->makeQuery($options, $allowed_options)
+            Api::BASE_URL . '/public/resources',
+            $this->lib->makeQuery($options, $allowed_options)
         );
 
         $info = $this->lib->jsonDecodeBodyContents($response);
@@ -93,8 +93,8 @@ final class PublicResourceApi extends Api
         ];
 
         $response = $this->lib->send(
-            url:Api::BASE_URL . '/public/resources/download',
-            query: $this->lib->makeQuery($options, $allowed_options)
+            Api::BASE_URL . '/public/resources/download',
+            $this->lib->makeQuery($options, $allowed_options)
         );
 
         $info = $this->lib->jsonDecodeBodyContents($response);
@@ -119,9 +119,9 @@ final class PublicResourceApi extends Api
         ];
 
         $response = $this->lib->send(
-            url:Api::BASE_URL . '/public/resources/save-to-disk',
-            query: $this->lib->makeQuery($options, $allowed_options),
-            method: 'POST'
+            Api::BASE_URL . '/public/resources/save-to-disk',
+            $this->lib->makeQuery($options, $allowed_options),
+            'POST'
         );
 
         $info = $this->lib->jsonDecodeBodyContents($response);
@@ -146,8 +146,8 @@ final class PublicResourceApi extends Api
         ];
 
         $response = $this->lib->send(
-            url:Api::BASE_URL . '/resources/public',
-            query: $this->lib->makeQuery($options, $allowed_options),
+            Api::BASE_URL . '/resources/public',
+            $this->lib->makeQuery($options, $allowed_options)
         );
 
         $info = $this->lib->jsonDecodeBodyContents($response);

@@ -32,13 +32,21 @@ class Adapter implements FilesystemAdapter
 
     public const PREFIX_FULL = 'disk:/';
 
-    private PathPrefixer $prefixer;
+    /**
+     * @var PathPrefixer
+     */
+    private $prefixer;
+    /**
+     * @var YandexDiskApi
+     */
+    private $client;
 
     public function __construct(
-        protected YandexDiskApi $client,
-                                $prefix = self::PREFIX_FULL
+        YandexDiskApi $client,
+        $prefix = self::PREFIX_FULL
     )
     {
+        $this->client = $client;
         $this->prefixer = new PathPrefixer($prefix);
     }
 
@@ -253,7 +261,11 @@ class Adapter implements FilesystemAdapter
         }
     }
 
-    private function getListItem($item): DirectoryAttributes|FileAttributes
+    /**
+     * @param $item
+     * @return DirectoryAttributes|FileAttributes
+     */
+    private function getListItem($item)
     {
         if($item['type'] === 'dir') {
             return new DirectoryAttributes(
@@ -271,7 +283,11 @@ class Adapter implements FilesystemAdapter
         );
     }
 
-    private function getMetadata($path): FileAttributes | DirectoryAttributes | Error
+    /**
+     * @param $path
+     * @return FileAttributes|DirectoryAttributes|Error
+     */
+    private function getMetadata($path)
     {
         $prefixedPath = $this->prefixer->prefixPath($path);
         $resource = $this->client->resource->getMeta($prefixedPath);

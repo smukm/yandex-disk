@@ -4,20 +4,36 @@ namespace smukm\YandexDisk\Dto;
 
 class FilesResourceList
 {
+    /**
+     * @var array
+     */
+    public $items;
+    /**
+     * @var int
+     */
+    public $limit;
+    /**
+     * @var int
+     */
+    public $offset;
+
     public function __construct(
-        public readonly array $items,
-        public readonly int   $limit,
-        public readonly int   $offset,
+        array $items,
+        int   $limit,
+        int   $offset
     )
     {
+        $this->items = $items;
+        $this->limit = $limit;
+        $this->offset = $offset;
     }
 
-    public static function createFromInfo(array $info): static
+    public static function createFromInfo(array $info): self
     {
         return new static(
-            items: $info['items'],
-            limit: $info['limit'],
-            offset: $info['offset']
+            $info['items'],
+            $info['limit'],
+            $info['offset']
         );
     }
 

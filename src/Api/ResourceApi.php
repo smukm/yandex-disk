@@ -46,8 +46,8 @@ final class ResourceApi extends Api
         ];
 
         $response = $this->lib->send(
-            url:Api::BASE_URL . '/resources',
-            query: $this->lib->makeQuery($options, $allowed_options)
+            Api::BASE_URL . '/resources',
+            $this->lib->makeQuery($options, $allowed_options)
         );
 
         $info = $this->lib->jsonDecodeBodyContents($response);
@@ -68,11 +68,11 @@ final class ResourceApi extends Api
 
         $resource = $this->getMeta($directory);
 
-        if(!($resource->type === 'dir')) {
+        if (!($resource->type === 'dir')) {
             return $ret;
         }
 
-        if(!is_iterable($resource->_embedded->items)) {
+        if (!is_iterable($resource->_embedded->items)) {
             return $ret;
         }
 
@@ -84,7 +84,7 @@ final class ResourceApi extends Api
                 'visibility' => (isset($item['public_key'])) ? 'public' : 'private'
             ];
 
-            if($item['type'] === 'file') {
+            if ($item['type'] === 'file') {
                 $attr['md5'] = $item['md5'];
                 $attr['mime_type'] = $item['mime_type'];
                 $attr['size'] = $item['size'];
@@ -92,8 +92,8 @@ final class ResourceApi extends Api
 
             $ret[] = $attr;
 
-            if($recursive && ($item['type'] === 'dir')) {
-                if(str_starts_with($item['path'], 'disk:')) {
+            if ($recursive && ($item['type'] === 'dir')) {
+                if (substr( $item['path'], 0, 5 ) === "disk:") {
                     $item['path'] = substr($item['path'], 5);
                 }
 
@@ -125,10 +125,11 @@ final class ResourceApi extends Api
             'fields',
         ];
 
-        $response = $this->lib->send(url: Api::BASE_URL . '/resources',
-            query: $this->lib->makeQuery($options, $allowed_options),
-            method: 'PATCH',
-            body: json_encode(['custom_properties' => $custom_properties])
+        $response = $this->lib->send(Api::BASE_URL . '/resources',
+            $this->lib->makeQuery($options, $allowed_options),
+            'PATCH',
+            [],
+            json_encode(['custom_properties' => $custom_properties])
         );
 
         $info = $this->lib->jsonDecodeBodyContents($response);
@@ -153,8 +154,8 @@ final class ResourceApi extends Api
         ];
 
         $response = $this->lib->send(
-            url:Api::BASE_URL . '/resources/last-uploaded',
-            query: $this->lib->makeQuery($options, $allowed_options)
+            Api::BASE_URL . '/resources/last-uploaded',
+            $this->lib->makeQuery($options, $allowed_options)
         );
 
         $info = $this->lib->jsonDecodeBodyContents($response);
@@ -181,8 +182,8 @@ final class ResourceApi extends Api
         ];
 
         $response = $this->lib->send(
-            url:Api::BASE_URL . '/resources/files',
-            query: $this->lib->makeQuery($options, $allowed_options)
+            Api::BASE_URL . '/resources/files',
+            $this->lib->makeQuery($options, $allowed_options)
         );
 
         $info = $this->lib->jsonDecodeBodyContents($response);

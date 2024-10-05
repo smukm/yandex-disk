@@ -7,23 +7,50 @@ use smukm\YandexDisk\Helpers\ResponseCode;
 
 class Link
 {
-    public function __construct(
-        public readonly string $href,
-        public readonly string $method,
-        public readonly bool   $templated,
-        public readonly int $status,
-        public readonly string $operation_id
-    )
-    {}
+    /**
+     * @var string
+     */
+    public $href;
+    /**
+     * @var string
+     */
+    public $method;
+    /**
+     * @var bool
+     */
+    public $templated;
+    /**
+     * @var int
+     */
+    public $status;
+    /**
+     * @var string
+     */
+    public $operation_id;
 
-    public static function createFromInfo(array $info, int $statusCode = ResponseCode::HTTP_OK): static
+    public function __construct(
+        string $href,
+        string $method,
+        bool   $templated,
+        int $status,
+        string $operation_id
+    )
     {
-        return new static(
-            href: $info['href'],
-            method: $info['method'],
-            templated: $info['templated'],
-            status: $statusCode,
-            operation_id: self::getOperation($info['href'])
+        $this->href = $href;
+        $this->method = $method;
+        $this->templated = $templated;
+        $this->status = $status;
+        $this->operation_id = $operation_id;
+    }
+
+    public static function createFromInfo(array $info, int $statusCode = ResponseCode::HTTP_OK): self
+    {
+        return new self(
+            $info['href'],
+            $info['method'],
+            $info['templated'],
+            $statusCode,
+            self::getOperation($info['href'])
         );
     }
 

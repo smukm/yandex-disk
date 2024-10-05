@@ -17,9 +17,9 @@ final class TrashApi extends Api
     public function clear(string $path = ''): Link
     {
         $response = $this->lib->send(
-            url:Api::BASE_URL . '/trash/resources',
-            query: $this->lib->makeQuery(compact('path'), ['path']),
-            method: 'DELETE'
+            Api::BASE_URL . '/trash/resources',
+            $this->lib->makeQuery(compact('path'), ['path']),
+            'DELETE'
         );
 
         $info = $this->lib->jsonDecodeBodyContents($response);
@@ -44,9 +44,9 @@ final class TrashApi extends Api
         ];
 
         $response = $this->lib->send(
-            url:Api::BASE_URL . '/trash/resources/restore',
-            query: $this->lib->makeQuery($options, $allowed_options),
-            method: 'PUT'
+            Api::BASE_URL . '/trash/resources/restore',
+            $this->lib->makeQuery($options, $allowed_options),
+            'PUT'
         );
 
         $info = $this->lib->jsonDecodeBodyContents($response);
@@ -76,8 +76,8 @@ final class TrashApi extends Api
         ];
 
         $response = $this->lib->send(
-            url:Api::BASE_URL . '/trash/resources',
-            query: $this->lib->makeQuery($options, $allowed_options)
+            Api::BASE_URL . '/trash/resources',
+            $this->lib->makeQuery($options, $allowed_options)
         );
 
         $info = $this->lib->jsonDecodeBodyContents($response);

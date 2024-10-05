@@ -34,16 +34,16 @@ final class UploadDownloadApi extends Api
         ];
         // запрос к диску для загрузки
         $response = $this->lib->send(
-            url:Api::BASE_URL . '/resources/upload',
-            query: $this->lib->makeQuery($options, $allowed_options)
+            Api::BASE_URL . '/resources/upload',
+            $this->lib->makeQuery($options, $allowed_options)
         );
 
         $info = $this->lib->jsonDecodeBodyContents($response);
 
         $this->lib->send(
-            url: $info['href'],
-            method: 'PUT',
-            body: $contents
+            $info['href'],
+            'PUT',
+            $contents
         );
 
         return true;
@@ -76,19 +76,20 @@ final class UploadDownloadApi extends Api
 
         // Request to Yandex disk for uploading
         $response = $this->lib->send(
-            url:Api::BASE_URL . '/resources/upload',
-            query: $this->lib->makeQuery($options, $allowed_options)
+            Api::BASE_URL . '/resources/upload',
+            $this->lib->makeQuery($options, $allowed_options)
         );
 
         $info = $this->lib->jsonDecodeBodyContents($response);
 
         $this->lib->send(
-            url: $info['href'],
-            method: 'PUT',
-            headers: [
+            $info['href'],
+            [],
+            'PUT',
+            [
                 'stream' => true,
             ],
-            body: $resource
+            $resource
         );
 
         return true;
@@ -114,14 +115,14 @@ final class UploadDownloadApi extends Api
         ];
 
         $response = $this->lib->send(
-            url:Api::BASE_URL . '/resources/download',
-            query: $this->lib->makeQuery($options, $allowed_options)
+            Api::BASE_URL . '/resources/download',
+            $this->lib->makeQuery($options, $allowed_options)
         );
 
         $info = $this->lib->jsonDecodeBodyContents($response);
 
         $response = $this->lib->send(
-            url: $info['href']
+            $info['href']
         );
 
         return $response->getBody()->getContents();
@@ -146,15 +147,17 @@ final class UploadDownloadApi extends Api
         ];
 
         $response = $this->lib->send(
-            url:Api::BASE_URL . '/resources/download',
-            query: $this->lib->makeQuery($options, $allowed_options)
+            Api::BASE_URL . '/resources/download',
+            $this->lib->makeQuery($options, $allowed_options)
         );
 
         $info = $this->lib->jsonDecodeBodyContents($response);
 
         $response = $this->lib->send(
-            url: $info['href'],
-            headers: ['stream' => true]
+            $info['href'],
+            [],
+            'GET',
+            ['stream' => true]
         );
 
         return $response->getBody();
@@ -184,9 +187,9 @@ final class UploadDownloadApi extends Api
         ];
 
         $response = $this->lib->send(
-            url:Api::BASE_URL . '/resources/upload',
-            query: $this->lib->makeQuery($options, $allowed_options),
-            method: 'POST'
+            Api::BASE_URL . '/resources/upload',
+            $this->lib->makeQuery($options, $allowed_options),
+            'POST'
         );
 
         $info = $this->lib->jsonDecodeBodyContents($response);

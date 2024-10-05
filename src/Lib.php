@@ -13,11 +13,14 @@ use Throwable;
 
 class Lib
 {
-    public function __construct(
-        private readonly string          $token,
-        private readonly ClientInterface $client
-    )
+    private $token;
+
+    private $client;
+
+    public function __construct(string $token, ClientInterface $client)
     {
+        $this->token = $token;
+        $this->client = $client;
     }
 
     /**
