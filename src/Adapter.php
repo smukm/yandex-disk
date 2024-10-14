@@ -2,6 +2,7 @@
 
 namespace smukm\YandexDisk;
 
+use InvalidArgumentException;
 use League\Flysystem\Config;
 use League\Flysystem\DirectoryAttributes;
 use League\Flysystem\FileAttributes;
